@@ -1,7 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { Text, View, TextInput, Button, FlatList, Modal, TouchableOpacity } from 'react-native';
-import { styles } from './styles';
+import { StatusBar } from 'expo-status-bar'
+import { useState } from 'react'
+import { Text, View, TextInput, Button, FlatList, Modal, TouchableOpacity } from 'react-native'
+import { styles } from './styles'
+import { AddItem } from './components'
+import { colors } from './constants/theme/colors'
 
 const App = () => {
 
@@ -25,8 +27,6 @@ const App = () => {
     ]);
     setTask('');
   }
-
-  // console.warn('tasks', tasks);
 
   const renderItem = ({ item }) => (
       <TouchableOpacity onPress={() => onHandlerModal(item)} style={styles.itemContainer} key={item.id}>
@@ -53,18 +53,14 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput 
-          style={styles.input} 
-          placeholder='add a new task'
-          autoCapitalize='none'
-          autoComplete='off'
-          autoCorrect={false}
-          value={task}
-          onChangeText={onHandlerChange}
-        />
-        <Button disabled={!task} title='Add' color='#2a9d8f' onPress={onHandlerSubmit}/>
-      </View>
+      <AddItem  
+        buttonColor={colors.primary}
+        buttonText="Add"
+        onHandlerChange={onHandlerChange}
+        onHandlerSubmit={onHandlerSubmit}
+        placeholder="Add a new task"
+        task={task}
+      />
       <FlatList 
         data={tasks}
         renderItem={renderItem}
